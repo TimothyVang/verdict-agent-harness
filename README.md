@@ -1,4 +1,32 @@
-# verdict-agent-harness
+<p align="center">
+  <img src="assets/logo/logo.png" alt="VERDICT" width="560">
+</p>
+
+<p align="center"><b>VERDICT Agent Harness</b></p>
+
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-4D5DFF.svg" alt="License"></a>
+  <img src="https://img.shields.io/badge/MCP-compatible-4D5DFF.svg" alt="MCP compatible">
+  <img src="https://img.shields.io/badge/opencode%20SDK-vendored%201.17.13-B8A8FF.svg" alt="Vendored opencode SDK">
+  <img src="https://img.shields.io/badge/harness-read--only%20forensic-73D9C2.svg" alt="Read-only forensic">
+  <img src="https://img.shields.io/badge/TypeScript-5.6-4D5DFF.svg" alt="TypeScript 5.6">
+  <img src="https://img.shields.io/badge/node-20-73D9C2.svg" alt="Node 20">
+</p>
+
+<p align="center"><b>Show Me the Evidence — drive an opencode agent through VERDICT's typed, read-only forensic MCP tools, custody intact.</b></p>
+
+<p align="center">
+  <a href="https://github.com/TimothyVang/verdict-dfir"><b>VERDICT</b></a> ·
+  <a href="#usage"><b>Usage</b></a> ·
+  <a href="#api"><b>API</b></a> ·
+  <a href="#vendored-sdk"><b>Vendored SDK</b></a> ·
+  <a href="https://opencode.ai/docs/sdk/"><b>opencode SDK</b></a>
+</p>
+
+---
+
+> **Trace it. Test it. Trust it.** Evidence over assumption — the harness wires
+> an agent to the tools, it does not upgrade what those tools conclude.
 
 A small TypeScript harness that drives an [opencode](https://opencode.ai) agent
 session with the **VERDICT** forensic MCP server attached — so an AI agent can
