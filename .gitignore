@@ -1,0 +1,13 @@
+# Build output (anchored to repo root so the vendored SDK's dist/ is NOT ignored)
+/dist/
+
+# Dependencies (top-level and any nested, e.g. vendor/opencode-sdk/node_modules)
+node_modules/
+
+*.log
+.env
+.env.local
+.DS_Store
+
+# The vendored SDK under vendor/opencode-sdk/dist IS committed on purpose —
+# it is the whole point of vendoring. Only its installed node_modules is ignored.

@@ -1,0 +1,53 @@
+{
+  "name": "verdict-agent-harness",
+  "version": "0.1.0",
+  "description": "Agent harness that drives an opencode session with the VERDICT forensic MCP server attached. Built on a vendored copy of the opencode SDK.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "author": "Timothy Vang",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimothyVang/verdict-agent-harness.git"
+  },
+  "keywords": [
+    "opencode",
+    "sdk",
+    "agent",
+    "harness",
+    "mcp",
+    "dfir",
+    "forensics",
+    "verdict"
+  ],
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/src/index.js",
+      "types": "./dist/src/index.d.ts"
+    }
+  },
+  "files": [
+    "dist/src",
+    "src",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "example:session": "node --experimental-strip-types examples/run-session.ts",
+    "example:events": "node --experimental-strip-types examples/stream-events.ts"
+  },
+  "dependencies": {
+    "@opencode-ai/sdk": "file:./vendor/opencode-sdk"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,87 @@
+/**
+ * Public types for the VERDICT agent harness.
+ *
+ * These are intentionally small and decoupled from the vendored opencode SDK
+ * so callers depend on this surface, not on generated SDK internals.
+ */
+
+/** A concrete provider/model selection understood by the opencode server. */
+export interface ModelRef {
+  providerID: string
+  modelID: string
+}
+
+/**
+ * How the VERDICT forensic MCP server should be attached to the opencode
+ * session. VERDICT ships as a read-only MCP server exposing typed DFIR tools;
+ * the harness wires it in so an agent can drive investigations.
+ */
+export type VerdictMcpConfig = VerdictMcpLocal | VerdictMcpRemote
+
+export interface VerdictMcpLocal {
+  type: "local"
+  /** Command + args that launch the VERDICT MCP server, e.g. ["verdict", "mcp"]. */
+  command: string[]
+  environment?: Record<string, string>
+  /** Defaults to true. */
+  enabled?: boolean
+}
+
+export interface VerdictMcpRemote {
+  type: "remote"
+  /** URL of a running VERDICT MCP server. */
+  url: string
+  headers?: Record<string, string>
+  /** Defaults to true. */
+  enabled?: boolean
+}
+
+export interface VerdictHarnessOptions {
+  /**
+   * Connect to an already-running opencode server at this base URL. When set,
+   * the harness will NOT spawn its own server and `mcp`/`config` that require a
+   * fresh server launch are ignored.
+   */
+  baseUrl?: string
+
+  /** Hostname for a harness-spawned server. Defaults to 127.0.0.1. */
+  hostname?: string
+  /** Port for a harness-spawned server. Defaults to an ephemeral port. */
+  port?: number
+
+  /**
+   * Working directory the agent operates in (the evidence/case workspace).
+   * Defaults to the current process directory.
+   */
+  directory?: string
+
+  /** Default model for prompts when a call does not specify one. */
+  model?: ModelRef
+
+  /** Default named agent (opencode agent preset) for prompts. */
+  agent?: string
+
+  /** VERDICT MCP server wiring. Injected into the spawned server config. */
+  verdictMcp?: VerdictMcpConfig
+
+  /** Key under which the VERDICT MCP server is registered. Defaults to "verdict". */
+  mcpName?: string
+}
+
+/** Options for a single prompt turn. */
+export interface AskOptions {
+  /** Override the harness default model for this turn. */
+  model?: ModelRef
+  /** Override the harness default agent for this turn. */
+  agent?: string
+  /** Per-tool enable/disable map, e.g. { "verdict_*": true }. */
+  tools?: Record<string, boolean>
+  /** System prompt override for this turn. */
+  system?: string
+}
+
+/** Minimal shape of an opencode session the harness returns to callers. */
+export interface SessionHandle {
+  id: string
+  title?: string
+}
