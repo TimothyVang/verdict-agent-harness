@@ -30,6 +30,8 @@
   "files": [
     "dist/src",
     "src",
+    "scripts",
+    ".opencode/themes",
     "README.md",
     "LICENSE",
     "NOTICE"
@@ -37,8 +39,10 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "install-theme": "node scripts/install-theme.mjs",
     "example:session": "node --experimental-strip-types examples/run-session.ts",
-    "example:events": "node --experimental-strip-types examples/stream-events.ts"
+    "example:events": "node --experimental-strip-types examples/stream-events.ts",
+    "example:tui": "node --experimental-strip-types examples/launch-tui.ts"
   },
   "dependencies": {
     "@opencode-ai/sdk": "file:./vendor/opencode-sdk"

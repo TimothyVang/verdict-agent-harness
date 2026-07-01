@@ -107,6 +107,35 @@ await harness.start()
 await harness.onEvents((event) => console.log(event))
 ```
 
+## Branded TUI
+
+The harness carries the VERDICT brand into the opencode terminal UI via a theme
+built from the brand palette — Midnight Ink background, Paper Cream text,
+Electric Cobalt primary, Soft Lilac secondary, and the semantic
+Seafoam / Signal Coral / Butter Yellow states. It ships as an opencode theme at
+[`.opencode/themes/verdict.json`](.opencode/themes/verdict.json) (dark + light
+variants).
+
+Install it user-wide so the TUI finds it from any case directory, then launch:
+
+```bash
+npm run install-theme        # copies the theme into ~/.config/opencode/themes/
+node --experimental-strip-types examples/launch-tui.ts
+```
+
+Or from code — the harness applies `theme: "verdict"` by default to both the
+spawned server and the TUI:
+
+```ts
+const harness = new VerdictHarness({ directory: "/cases/incident" })
+const tui = harness.launchTui()   // VERDICT-themed opencode TUI
+// tui.close() to stop it
+```
+
+Pass `theme: null` in the harness options to inherit opencode's default theme,
+or `theme: "some-other-theme"` to use a different one. Inside the TUI you can
+also switch with `/theme verdict`.
+
 ## API
 
 | Method | Purpose |
@@ -114,6 +143,7 @@ await harness.onEvents((event) => console.log(event))
 | `start()` / `stop()` | Spawn/attach and tear down the server connection |
 | `createSession(title?)` / `deleteSession(id)` | Session lifecycle |
 | `ask(sessionID, text, opts?)` | One prompt turn → assistant text |
+| `launchTui(opts?)` | Launch the VERDICT-themed opencode TUI |
 | `onEvents(handler, signal?)` | Stream server-sent events |
 | `listTools()` / `mcpStatus()` / `providers()` / `agents()` | Introspection |
 | `raw` | The underlying `OpencodeClient` for unwrapped calls |
@@ -132,10 +162,12 @@ OPENCODE_BASE_URL=http://localhost:4096 \
 ## Layout
 
 ```
-src/            # harness source (types, harness, index)
-examples/       # runnable usage examples
+src/                        # harness source (types, harness, index)
+examples/                   # runnable usage examples
+scripts/install-theme.mjs   # install the VERDICT theme user-wide
+.opencode/themes/verdict.json  # VERDICT brand theme for the opencode TUI
 vendor/
-  opencode-sdk/ # vendored @opencode-ai/sdk 1.17.13 (MIT)
+  opencode-sdk/             # vendored @opencode-ai/sdk 1.17.13 (MIT)
 ```
 
 ## Licensing

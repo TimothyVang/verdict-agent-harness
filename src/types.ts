@@ -66,6 +66,26 @@ export interface VerdictHarnessOptions {
 
   /** Key under which the VERDICT MCP server is registered. Defaults to "verdict". */
   mcpName?: string
+
+  /**
+   * opencode theme name applied to the spawned server and any launched TUI.
+   * Defaults to "verdict" (the VERDICT brand theme shipped in
+   * `.opencode/themes/verdict.json`). Set to `null` to leave the theme unset
+   * and inherit opencode's default.
+   */
+  theme?: string | null
+}
+
+/** Options for launching the branded opencode TUI. */
+export interface TuiLaunchOptions {
+  /** Attach the TUI to an existing session instead of a fresh one. */
+  session?: string
+  /** Override the harness default model for the TUI. */
+  model?: ModelRef
+  /** Override the harness default agent for the TUI. */
+  agent?: string
+  /** Abort signal to close the TUI process. */
+  signal?: AbortSignal
 }
 
 /** Options for a single prompt turn. */

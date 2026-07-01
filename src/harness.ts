@@ -1,6 +1,7 @@
 import {
   createOpencodeClient,
   createOpencodeServer,
+  createOpencodeTui,
   type OpencodeClient,
 } from "@opencode-ai/sdk"
 
@@ -8,12 +9,16 @@ import type {
   AskOptions,
   ModelRef,
   SessionHandle,
+  TuiLaunchOptions,
   VerdictHarnessOptions,
   VerdictMcpConfig,
 } from "./types.js"
 
 const DEFAULT_HOSTNAME = "127.0.0.1"
 const DEFAULT_MCP_NAME = "verdict"
+
+/** VERDICT brand theme shipped in `.opencode/themes/verdict.json`. */
+export const DEFAULT_THEME = "verdict"
 
 /**
  * Drives an opencode agent that has the VERDICT forensic MCP server attached.
@@ -156,13 +161,47 @@ export class VerdictHarness {
     }
   }
 
+  // --- TUI ---------------------------------------------------------------
+
+  /**
+   * Launch the opencode terminal UI, branded with the VERDICT theme, pointed at
+   * the harness working directory. Returns a handle whose `close()` stops the
+   * TUI process. Does not require `start()` — it spawns its own opencode TUI.
+   */
+  launchTui(opts: TuiLaunchOptions = {}): { close(): void } {
+    const model = opts.model ?? this.options.model
+    const theme = this.resolveTheme()
+    return createOpencodeTui({
+      project: this.options.directory,
+      agent: opts.agent ?? this.options.agent,
+      session: opts.session,
+      signal: opts.signal,
+      ...(model ? { model: `${model.providerID}/${model.modelID}` } : {}),
+      ...(theme ? { config: { theme } } : {}),
+    })
+  }
+
   // --- internals ---------------------------------------------------------
 
   private buildServerConfig() {
+    const config: Record<string, unknown> = {}
+
+    const theme = this.resolveTheme()
+    if (theme) config.theme = theme
+
     const mcp = this.options.verdictMcp
-    if (!mcp) return undefined
-    const name = this.options.mcpName ?? DEFAULT_MCP_NAME
-    return { mcp: { [name]: toSdkMcp(mcp) } }
+    if (mcp) {
+      const name = this.options.mcpName ?? DEFAULT_MCP_NAME
+      config.mcp = { [name]: toSdkMcp(mcp) }
+    }
+
+    return Object.keys(config).length > 0 ? config : undefined
+  }
+
+  /** Resolve the theme name, honouring an explicit `null` opt-out. */
+  private resolveTheme(): string | undefined {
+    if (this.options.theme === null) return undefined
+    return this.options.theme ?? DEFAULT_THEME
   }
 
   private directoryQuery() {
