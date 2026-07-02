@@ -117,9 +117,14 @@ Seafoam / Signal Coral / Butter Yellow states. It ships as an opencode theme at
 variants).
 
 <p align="center">
-  <img src="docs/tui-verdict-theme.png" alt="opencode TUI with the VERDICT theme" width="720">
+  <img src="docs/tui-verdict-light.png" alt="opencode TUI with the VERDICT theme (light)" width="720">
 </p>
-<p align="center"><sub>The live opencode TUI under the VERDICT theme — opencode tints its own logo, prompt border, and status chips from the theme palette. Rendered from the running TUI's ANSI capture (opencode 1.17.11).</sub></p>
+<p align="center"><sub>The live opencode TUI under the VERDICT theme — opencode tints its own logo, prompt border, and status chips from the theme palette. True window screenshot of a real terminal (light variant; opencode picks dark/light from the terminal background).</sub></p>
+
+<p align="center">
+  <img src="docs/tui-verdict-theme.png" alt="opencode TUI with the VERDICT theme (dark)" width="720">
+</p>
+<p align="center"><sub>Dark variant — rendered from the running TUI's actual ANSI capture.</sub></p>
 
 Install it user-wide so the TUI finds it from any case directory, then launch:
 
