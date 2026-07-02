@@ -116,6 +116,11 @@ Seafoam / Signal Coral / Butter Yellow states. It ships as an opencode theme at
 [`.opencode/themes/verdict.json`](.opencode/themes/verdict.json) (dark + light
 variants).
 
+<p align="center">
+  <img src="docs/tui-verdict-theme.png" alt="opencode TUI with the VERDICT theme" width="720">
+</p>
+<p align="center"><sub>The live opencode TUI under the VERDICT theme — opencode tints its own logo, prompt border, and status chips from the theme palette. Rendered from the running TUI's ANSI capture (opencode 1.17.11).</sub></p>
+
 Install it user-wide so the TUI finds it from any case directory, then launch:
 
 ```bash
@@ -143,6 +148,11 @@ V-mark, a Paper Cream block "VERDICT" wordmark, and the "Trace it. Test it. Trus
 it." kicker. It uses 24-bit truecolor when the terminal supports it, falls back
 to xterm-256, drops color under `NO_COLOR` or non-TTY, and shrinks to a compact
 lockup on narrow terminals.
+
+<p align="center">
+  <img src="docs/masthead.png" alt="VERDICT ANSI masthead" width="520">
+</p>
+<p align="center"><sub>The <code>renderMasthead()</code> output (truecolor). Rendered from the module's actual ANSI, not a mockup.</sub></p>
 
 ```ts
 harness.launchTui({ banner: "both" })   // "launch" | "exit" (default) | "both" | "none"
