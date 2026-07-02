@@ -1,3 +1,12 @@
+> [!IMPORTANT]
+> **This repository is archived and superseded by
+> [`caseforge-core`](https://github.com/TimothyVang/caseforge-core).**
+> The opencode SDK controller here was absorbed into
+> `caseforge-core/packages/caseforge-sdk` (as `@verdict/caseforge-sdk`), where it
+> is maintained alongside the privacy-mode router, structured findings, and
+> VERDICT custody validation. Use `caseforge-core` for new work. This repo
+> remains read-only for reference.
+
 <p align="center">
   <img src="assets/logo/logo.png" alt="VERDICT" width="560">
 </p>
