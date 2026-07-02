@@ -107,6 +107,24 @@ await harness.start()
 await harness.onEvents((event) => console.log(event))
 ```
 
+## Branded engine (the `verdict` fork)
+
+By default the harness spawns **`verdict`** — the VERDICT-branded opencode fork
+([TimothyVang/verdict-opencode](https://github.com/TimothyVang/verdict-opencode))
+— not stock `opencode`. That fork rebrands the TUI wordmark, terminal title, and
+app-name strings, and disables auto-update. The vendored SDK is patched to honor
+an `OPENCODE_BIN` env hook, which the harness sets from the `binary` option.
+
+```ts
+new VerdictHarness({ /* binary: "verdict" (default) */ })   // branded fork
+new VerdictHarness({ binary: "opencode" })                   // stock upstream
+new VerdictHarness({ binary: "/abs/path/to/verdict" })       // specific build
+```
+
+Install the `verdict` binary by building the fork (`bun run script/build.ts
+--single --skip-embed-web-ui` in verdict-opencode) and putting it on `PATH`.
+Without it, set `binary: "opencode"` to use stock upstream.
+
 ## Branded TUI
 
 The harness carries the VERDICT brand into the opencode terminal UI via a theme

@@ -1,5 +1,7 @@
 import launch from "cross-spawn";
 import { stop, bindAbort } from "./process.js";
+// VERDICT harness: allow overriding the spawned binary (e.g. the branded `verdict` fork).
+const OPENCODE_BIN = process.env.OPENCODE_BIN || "opencode";
 export async function createOpencodeServer(options) {
     options = Object.assign({
         hostname: "127.0.0.1",
@@ -9,7 +11,7 @@ export async function createOpencodeServer(options) {
     const args = [`serve`, `--hostname=${options.hostname}`, `--port=${options.port}`];
     if (options.config?.logLevel)
         args.push(`--log-level=${options.config.logLevel}`);
-    const proc = launch(`opencode`, args, {
+    const proc = launch(OPENCODE_BIN, args, {
         env: {
             ...process.env,
             OPENCODE_CONFIG_CONTENT: JSON.stringify(options.config ?? {}),
@@ -88,7 +90,7 @@ export function createOpencodeTui(options) {
     if (options?.agent) {
         args.push(`--agent=${options.agent}`);
     }
-    const proc = launch(`opencode`, args, {
+    const proc = launch(OPENCODE_BIN, args, {
         stdio: "inherit",
         env: {
             ...process.env,

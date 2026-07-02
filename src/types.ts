@@ -74,6 +74,15 @@ export interface VerdictHarnessOptions {
    * and inherit opencode's default.
    */
   theme?: string | null
+
+  /**
+   * Binary that runs the opencode server/TUI. Defaults to "verdict" — the
+   * VERDICT-branded fork (https://github.com/TimothyVang/verdict-opencode).
+   * Set to "opencode" to use stock upstream, or an absolute path to a specific
+   * build. Ignored in attached (`baseUrl`) mode. Applied via the vendored SDK's
+   * `OPENCODE_BIN` env hook.
+   */
+  binary?: string
 }
 
 /** Options for launching the branded opencode TUI. */

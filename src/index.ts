@@ -1,4 +1,4 @@
-export { VerdictHarness, DEFAULT_THEME } from "./harness.js"
+export { VerdictHarness, DEFAULT_THEME, DEFAULT_BINARY } from "./harness.js"
 export { renderMasthead, printMasthead } from "./masthead.js"
 export type { MastheadOptions } from "./masthead.js"
 export type {

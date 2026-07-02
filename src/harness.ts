@@ -21,6 +21,9 @@ const DEFAULT_MCP_NAME = "verdict"
 /** VERDICT brand theme shipped in `.opencode/themes/verdict.json`. */
 export const DEFAULT_THEME = "verdict"
 
+/** VERDICT-branded opencode fork binary. */
+export const DEFAULT_BINARY = "verdict"
+
 /**
  * Drives an opencode agent that has the VERDICT forensic MCP server attached.
  *
@@ -51,6 +54,7 @@ export class VerdictHarness {
       return this
     }
 
+    this.applyBinaryEnv()
     this.server = await createOpencodeServer({
       hostname: this.options.hostname ?? DEFAULT_HOSTNAME,
       port: this.options.port,
@@ -174,6 +178,7 @@ export class VerdictHarness {
     const theme = this.resolveTheme()
     const banner = opts.banner ?? "exit"
 
+    this.applyBinaryEnv()
     if (banner === "launch" || banner === "both") printMasthead()
 
     const tui = createOpencodeTui({
@@ -217,6 +222,14 @@ export class VerdictHarness {
   private resolveTheme(): string | undefined {
     if (this.options.theme === null) return undefined
     return this.options.theme ?? DEFAULT_THEME
+  }
+
+  /**
+   * Point the vendored SDK at the configured binary (default: the branded
+   * `verdict` fork) via its `OPENCODE_BIN` env hook, read at spawn time.
+   */
+  private applyBinaryEnv(): void {
+    process.env.OPENCODE_BIN = this.options.binary ?? DEFAULT_BINARY
   }
 
   private directoryQuery() {
