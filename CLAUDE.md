@@ -4,7 +4,7 @@ TypeScript agent harness that drives an opencode session with the VERDICT
 forensic MCP server attached. Built on a **vendored** copy of `@opencode-ai/sdk`.
 
 ## Layout
-- `src/` — harness source. `types.ts` (public types), `harness.ts` (`VerdictHarness`, `launchTui`), `index.ts` (exports).
+- `src/` — harness source. `types.ts` (public types), `harness.ts` (`VerdictHarness`, `launchTui`), `masthead.ts` (VERDICT ANSI banner), `index.ts` (exports).
 - `examples/` — runnable usage examples (`run-session`, `stream-events`, `launch-tui`).
 - `.opencode/themes/verdict.json` — VERDICT brand theme for the opencode TUI (dark + light). Palette from `dev-verdict-github/docs/brand.md`; keep semantic colors (Seafoam=pass, Coral=fail, Butter=review) meaningful, not decorative.
 - `scripts/install-theme.mjs` — copies the theme into `$XDG_CONFIG_HOME/opencode/themes/` so the TUI finds it from any case dir.

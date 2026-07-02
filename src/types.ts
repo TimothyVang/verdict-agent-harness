@@ -86,6 +86,13 @@ export interface TuiLaunchOptions {
   agent?: string
   /** Abort signal to close the TUI process. */
   signal?: AbortSignal
+
+  /**
+   * When to print the VERDICT brand masthead around the TUI. The TUI uses the
+   * alternate screen buffer, so a "launch" banner is usually cleared once it
+   * paints — "exit" is the one that reliably persists. Default: "exit".
+   */
+  banner?: "launch" | "exit" | "both" | "none"
 }
 
 /** Options for a single prompt turn. */

@@ -136,6 +136,25 @@ Pass `theme: null` in the harness options to inherit opencode's default theme,
 or `theme: "some-other-theme"` to use a different one. Inside the TUI you can
 also switch with `/theme verdict`.
 
+### Masthead
+
+The harness also prints a VERDICT ANSI masthead around the TUI — the cobalt/lilac
+V-mark, a Paper Cream block "VERDICT" wordmark, and the "Trace it. Test it. Trust
+it." kicker. It uses 24-bit truecolor when the terminal supports it, falls back
+to xterm-256, drops color under `NO_COLOR` or non-TTY, and shrinks to a compact
+lockup on narrow terminals.
+
+```ts
+harness.launchTui({ banner: "both" })   // "launch" | "exit" (default) | "both" | "none"
+
+import { printMasthead } from "verdict-agent-harness"
+printMasthead()   // print it anywhere yourself
+```
+
+Because the opencode TUI runs in the alternate screen buffer, a `launch` banner
+is usually cleared once the TUI paints — the `exit` banner (default) is the one
+that reliably persists.
+
 ## API
 
 | Method | Purpose |
@@ -143,8 +162,9 @@ also switch with `/theme verdict`.
 | `start()` / `stop()` | Spawn/attach and tear down the server connection |
 | `createSession(title?)` / `deleteSession(id)` | Session lifecycle |
 | `ask(sessionID, text, opts?)` | One prompt turn → assistant text |
-| `launchTui(opts?)` | Launch the VERDICT-themed opencode TUI |
+| `launchTui(opts?)` | Launch the VERDICT-themed opencode TUI + masthead |
 | `onEvents(handler, signal?)` | Stream server-sent events |
+| `printMasthead()` / `renderMasthead()` | Print/return the VERDICT ANSI masthead |
 | `listTools()` / `mcpStatus()` / `providers()` / `agents()` | Introspection |
 | `raw` | The underlying `OpencodeClient` for unwrapped calls |
 

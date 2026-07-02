@@ -19,7 +19,7 @@ const harness = new VerdictHarness({
   },
 })
 
-const tui = harness.launchTui()
+const tui = harness.launchTui({ banner: "both" })
 console.error("VERDICT-branded TUI launched — close the TUI window to exit")
 
 for (const signal of ["SIGINT", "SIGTERM"] as const) {

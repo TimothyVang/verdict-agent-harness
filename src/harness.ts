@@ -13,6 +13,7 @@ import type {
   VerdictHarnessOptions,
   VerdictMcpConfig,
 } from "./types.js"
+import { printMasthead } from "./masthead.js"
 
 const DEFAULT_HOSTNAME = "127.0.0.1"
 const DEFAULT_MCP_NAME = "verdict"
@@ -171,7 +172,11 @@ export class VerdictHarness {
   launchTui(opts: TuiLaunchOptions = {}): { close(): void } {
     const model = opts.model ?? this.options.model
     const theme = this.resolveTheme()
-    return createOpencodeTui({
+    const banner = opts.banner ?? "exit"
+
+    if (banner === "launch" || banner === "both") printMasthead()
+
+    const tui = createOpencodeTui({
       project: this.options.directory,
       agent: opts.agent ?? this.options.agent,
       session: opts.session,
@@ -179,6 +184,16 @@ export class VerdictHarness {
       ...(model ? { model: `${model.providerID}/${model.modelID}` } : {}),
       ...(theme ? { config: { theme } } : {}),
     })
+
+    if (banner === "exit" || banner === "both") {
+      return {
+        close: () => {
+          tui.close()
+          printMasthead()
+        },
+      }
+    }
+    return tui
   }
 
   // --- internals ---------------------------------------------------------
